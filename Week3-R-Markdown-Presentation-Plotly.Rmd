@@ -1,0 +1,51 @@
+---
+title: "R Markdown and Leaflet Assignment"
+author: "Hemanshu Singh"
+date: "February 02, 2018"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+
+## Instructions
+Create a web page presentation using R Markdown that features a plot created with Plotly. Host your webpage on either GitHub Pages, RPubs, or NeoCities. Your webpage must contain the date that you created the document, and it must contain a plot created with Plotly.
+
+Review criteria : The rubric contains the following two questions:
+
+Does the web page feature a date and is this date less than two months before the date that you're grading this assignment?
+
+Is the web page a presentation and does it feature an interactive plot that appears to have been created with Plotly?
+
+
+## Natural Gas Prices Data
+Time series of major Natural Gas Prices including US Henry Hub. Data comes from U.S. Energy Information Administration EIA
+
+Dataset contains Monthly prices of Natural gas, starting from January 1997, including April 2016. Prices are in nominal dollars per Million Btu.
+
+License : Public domain and use of EIA content
+
+
+## Getting Data & Preparing Plot
+```{r, include=FALSE}
+sourceData <- read.csv("C:/Personal/coursera-data-science/9-Developing-Data-Products/Project/natural-gas-prices/data/natural-gas-monthly.csv", 
+                       stringsAsFactors = FALSE)
+```
+
+Assigning titles to X & Y axis.
+```{r}
+head(sourceData)
+x <- list(title = "Years")
+y <- list(title = "Price in USD")
+```
+
+
+```{r, setup, include=FALSE}
+library(ggplot2)
+library(plotly)
+plot1 <- plot_ly(sourceData, x = ~as.Date(Date), y = ~Price, type = 'scatter', mode = 'lines') %>% layout(xaxis = x, yaxis = y)
+```
+##Plot of Natural Gas Prices using Plotly
+```{r}
+plot1
+```
+
